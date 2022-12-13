@@ -5,4 +5,4 @@ In the following we can see a tunnel configured using the "barrets.ecs.vuw.ac" s
 Then the remote server at the ip address of the NAS is being forwarded to my local machine. 
 This allows me to access the synology setup remotely therefore "bypassing" the firewall.
 
-![SSH tunnel configuration](https://ibb.co/ZMKNK18 "SSH Tunnel")
+![SSH tunnel configuration](https://i.ibb.co/5Rv2vx8/Screenshot-2022-12-13-201141.png "SSH Tunnel")
