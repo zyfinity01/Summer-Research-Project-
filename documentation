@@ -1,0 +1,32 @@
+Docker Installation:
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt-get update
+apt-get install -y docker-ce
+
+
+Now docker is installed and ready to use:
+
+Now we can install some containers: 
+
+Portainer: 
+docker run -d -p 8000:8000 -p 9443:9443 -p 9000:9000 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ee:latest
+
+NGINX Proxy Manager:
+docker run -d \
+    --name=nginx-proxy-manager \
+    -p 81:8181 \
+    -p 80:8080 \
+    -p 443:4443 \
+    -v /containers/nginx-proxy-manager:/config:rw \
+    --network="host" \
+    jlesage/nginx-proxy-manager
+
+
+Cowrie SSH Honeypot:
+docker run -p 2222:2222/tcp cowrie/cowrie
+
+
+Silverstripe CMS:
+
