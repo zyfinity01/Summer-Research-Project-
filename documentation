@@ -30,3 +30,63 @@ docker run -p 2222:2222/tcp cowrie/cowrie
 
 Silverstripe CMS:
 
+Docker compose file for both the database and the frontend containers:
+
+version: "3.8"
+services:
+  silverstripe:
+    user: root
+    build:
+      context: ./myproject
+      dockerfile: Dockerfile
+    working_dir: /var/www/
+    volumes:
+       - ./myproject/website:/var/www
+    depends_on:
+       - database
+    environment:
+       - DOCUMENT_ROOT=/var/www/public
+       - SS_TRUSTED_PROXY_IPS=*
+       - SS_ENVIRONMENT_TYPE=dev
+       - SS_DATABASE_SERVER=database
+       - SS_DATABASE_NAME=SS_mysite
+       - SS_DATABASE_USERNAME=root
+       - SS_DATABASE_PASSWORD=
+       - SS_DEFAULT_ADMIN_USERNAME=admin
+       - SS_DEFAULT_ADMIN_PASSWORD=g6ilh69vjlzd
+    ports:
+      - "8080:80"
+
+  database:
+    image: mysql:5.7
+    environment:
+       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+       - ./db-data:/var/lib/mysql
+
+docker-compose build
+docker-compose update
+docker-compose ps
+docker exec -it <containerid> bash
+compose create-project silverstripe/installer .
+chown -R www-data:www-data /var/www
+cat <<EOF > php.ini
+; Maximum allowed size for uploaded files.
+upload_max_filesize = 999M
+post_max_size = 999M
+EOF
+docker cp php.ini <containerid>:/usr/local/etc/php/php.ini
+
+
+
+Now the silverstripe container should be up and operational, alongside being accesible at:
+http://localhost:8000
+
+With the default admin credentials being in the docker compose config file created above.
+
+The upload file limit has also been increased to 999MB.
+
+
+
+
+
