@@ -78,6 +78,7 @@ docker exec -it <containerid> bash
 compose create-project silverstripe/installer .
 chown -R www-data:www-data /var/www
 ```
+Increase file upload limit to 999MB:
 ```
 cat <<EOF > php.ini
 ; Maximum allowed size for uploaded files.
@@ -98,7 +99,7 @@ The upload file limit has also been increased to 999MB.
 
 
 
-Installing the forms module:
+Installing the user forms module:
 ```
 docker exec -it <containerid> bash
 composer require silverstripe/userforms
