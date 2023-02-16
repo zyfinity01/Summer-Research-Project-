@@ -1,9 +1,10 @@
 Docker Installation:
-
+```
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 apt-get update
 apt-get install -y docker-ce
+```
 
 
 Now docker is installed and ready to use:
@@ -11,9 +12,12 @@ Now docker is installed and ready to use:
 Now we can install some containers: 
 
 Portainer: 
+```
 docker run -d -p 8000:8000 -p 9443:9443 -p 9000:9000 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ee:latest
+```
 
 NGINX Proxy Manager:
+```
 docker run -d \
     --name=nginx-proxy-manager \
     -p 81:8181 \
@@ -22,16 +26,18 @@ docker run -d \
     -v /containers/nginx-proxy-manager:/config:rw \
     --network="host" \
     jlesage/nginx-proxy-manager
-
+```
 
 Cowrie SSH Honeypot:
+```
 docker run -p 2222:2222/tcp cowrie/cowrie
+```
 
 
 Silverstripe CMS:
 
 Docker compose file for both the database and the frontend containers:
-
+```
 version: "3.8"
 services:
   silverstripe:
@@ -63,20 +69,23 @@ services:
        - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     volumes:
        - ./db-data:/var/lib/mysql
-
+```
+```
 docker-compose build
 docker-compose update
 docker-compose ps
 docker exec -it <containerid> bash
 compose create-project silverstripe/installer .
 chown -R www-data:www-data /var/www
+```
+```
 cat <<EOF > php.ini
 ; Maximum allowed size for uploaded files.
 upload_max_filesize = 999M
 post_max_size = 999M
 EOF
 docker cp php.ini <containerid>:/usr/local/etc/php/php.ini
-
+```
 Now visit here to build DB: http://localhost:8000/dev/build
 
 Now the silverstripe container should be up and operational, alongside being accesible at:
@@ -89,9 +98,11 @@ The upload file limit has also been increased to 999MB.
 
 
 
-Installing the fornms module:
+Installing the forms module:
+```
 docker exec -it <containerid> bash
 composer require silverstripe/userforms
+```
 
 then visit to rebuild DB: http://localhost:8000/dev/build
 
