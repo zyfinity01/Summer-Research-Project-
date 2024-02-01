@@ -94,5 +94,5 @@ TZ: Pacific/Auckland
 MYSQL_ROOT_PASSWORD: @dPr0xm0x
 MYSQL_DATABASE: nextcloud
 MYSQL_USER: nextcloud
-MYSQL_PASSWORD: @dPr0xM0x
+MYSQL_PASSWORD: @dPr0xm0x
 ```
