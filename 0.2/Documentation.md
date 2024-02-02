@@ -96,3 +96,9 @@ MYSQL_DATABASE: nextcloud
 MYSQL_USER: nextcloud
 MYSQL_PASSWORD: @dPr0xm0x
 ```
+
+## Setting up a custom domain
+
+Note that Ian needs to complete this part, remember to document editing config.php.
+
+Also discuss security, we will want to put the nextcloud behind our NGIX especially as in most deployment situations there will be a single IP address.
